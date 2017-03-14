@@ -22,7 +22,7 @@ public class TestBroadcastReceiver extends BroadcastReceiver {
             if (intent.getBooleanExtra(BroadcastReceiverData.DATA_NEED_CALLBACK_BOOLEAN, false)) {
                 Intent mIntent = new Intent(ACTION);
                 mIntent.putExtra(BroadcastReceiverData.DATA_CALLBACK_STRING, "这个是我的返回数据");
-                mIntent.putExtra(BroadcastReceiverData.DATA_NEED_CALLBACK_BOOLEAN, true);
+                mIntent.putExtra(BroadcastReceiverData.DATA_NEED_CALLBACK_BOOLEAN, false);
                 App.getInstance().sendBroadcast(mIntent);
             }
         }

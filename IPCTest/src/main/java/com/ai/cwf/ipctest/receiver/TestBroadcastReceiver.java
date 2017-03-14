@@ -19,7 +19,8 @@ public class TestBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Utils.showTip(App.getInstance(), getIntentString(intent, BroadcastReceiverData.DATA_TEST), false);
+        if (intent.hasExtra(BroadcastReceiverData.DATA_TEST))
+            Utils.showTip(App.getInstance(), getIntentString(intent, BroadcastReceiverData.DATA_TEST), false);
         if (intent.hasExtra(BroadcastReceiverData.DATA_NEED_CALLBACK_BOOLEAN))
             Utils.showTip(App.getInstance(), getIntentString(intent, BroadcastReceiverData.DATA_CALLBACK_STRING), false);
     }
