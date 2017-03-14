@@ -16,6 +16,10 @@ import com.ai.cwf.ipcdemo.broadcast.BroadcastReceiverActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+http://www.cnblogs.com/rayray/p/3175091.html
+*/
 public class MainActivity extends AppCompatActivity {
     private ListView mListView;
     private List<Modal> mList = new ArrayList<>();
