@@ -1,6 +1,5 @@
 package com.ai.cwf.ipcdemo;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ai.cwf.common.SharedPreferencesUtils;
+import com.ai.cwf.common.Utils;
 import com.ai.cwf.ipcdemo.broadcast.BroadcastReceiverActivity;
+import com.ai.cwf.ipcdemo.shareduserid.TextSharedUserIdActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mListView = (ListView) findViewById(R.id.listview);
         mList.add(new Modal("使用BroadcastReceiver", BroadcastReceiverActivity.class));
-        mList.add(new Modal("哈哈", null));
+        mList.add(new Modal("使用sharedUserId", TextSharedUserIdActivity.class));
         mList.add(new Modal("哈哈", null));
         mListView.setAdapter(new Adapter());
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

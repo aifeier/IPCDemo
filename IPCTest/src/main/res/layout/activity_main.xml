@@ -16,4 +16,10 @@
         android:layout_height="wrap_content"
         android:text="调用其它应用的Activity" />
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/request_sp_callback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取其它应用共享的SharedPreferences值" />
+
 </LinearLayout>
