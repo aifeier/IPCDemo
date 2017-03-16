@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.request_callback).setOnClickListener(this);
         findViewById(R.id.request_activity_callback).setOnClickListener(this);
         findViewById(R.id.request_sp_callback).setOnClickListener(this);
+        findViewById(R.id.request_sqlite_callback).setOnClickListener(this);
         try {
             Context anotherContent = this.createPackageContext("com.ai.cwf.ipcdemo", Context.CONTEXT_IGNORE_SECURITY);
         } catch (PackageManager.NameNotFoundException e) {
@@ -30,9 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.request_callback:
-                Intent intent = new Intent(TestBroadcastReceiver.ACTION);
+                intent.setAction(TestBroadcastReceiver.ACTION);
                 intent.putExtra(BroadcastReceiverData.DATA_NEED_CALLBACK_BOOLEAN, true);
                 sendBroadcast(intent);
                 break;
@@ -52,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                     Utils.showTip(this, "没有找到该应用: " + e.getMessage(), false);
                 }
+                break;
+            case R.id.request_sqlite_callback:
+                intent = new Intent(MainActivity.this,TestSQLiteActivity.class);
+                startActivity(intent);
                 break;
         }
     }

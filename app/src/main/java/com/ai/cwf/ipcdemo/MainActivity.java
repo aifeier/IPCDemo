@@ -10,9 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.ai.cwf.common.SharedPreferencesUtils;
-import com.ai.cwf.common.Utils;
 import com.ai.cwf.ipcdemo.broadcast.BroadcastReceiverActivity;
+import com.ai.cwf.ipcdemo.shareduserid.TestSQLiteActivity;
 import com.ai.cwf.ipcdemo.shareduserid.TextSharedUserIdActivity;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listview);
         mList.add(new Modal("使用BroadcastReceiver", BroadcastReceiverActivity.class));
         mList.add(new Modal("使用sharedUserId", TextSharedUserIdActivity.class));
-        mList.add(new Modal("哈哈", null));
+        mList.add(new Modal("使用数据库", TestSQLiteActivity.class));
         mListView.setAdapter(new Adapter());
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder = new ViewHolder();
                 convertView = getLayoutInflater().inflate(android.R.layout.simple_expandable_list_item_1, null);
                 viewHolder.title = (TextView) convertView.findViewById(android.R.id.text1);
-                convertView.setTag(convertView);
+                convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }

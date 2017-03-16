@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".broadcast.BroadcastReceiverActivity" />
         <activity android:name=".shareduserid.TextSharedUserIdActivity" />
+        <activity android:name=".shareduserid.TestSQLiteActivity" />
         <activity android:name=".TestActivity">
             <intent-filter>
                 <action android:name="com.ai.cwf.ipcdemo.test.activity" />

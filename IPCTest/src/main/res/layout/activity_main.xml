@@ -22,4 +22,10 @@
         android:layout_height="wrap_content"
         android:text="获取其它应用共享的SharedPreferences值" />
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/request_sqlite_callback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用sharedUserId共享数据库" />
+
 </LinearLayout>
