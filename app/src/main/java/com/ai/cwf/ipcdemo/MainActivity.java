@@ -17,6 +17,8 @@ import com.ai.cwf.ipcdemo.shareduserid.TextSharedUserIdActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ai.cwf.ipcdemo.shareduserid.TestSQLiteActivity.KEY_USE_CONTENT_PROVIDER;
+
 
 /*
 http://www.cnblogs.com/rayray/p/3175091.html
@@ -31,15 +33,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mListView = (ListView) findViewById(R.id.listview);
         mList.add(new Modal("使用BroadcastReceiver", BroadcastReceiverActivity.class));
-        mList.add(new Modal("使用sharedUserId", TextSharedUserIdActivity.class));
-        mList.add(new Modal("使用数据库", TestSQLiteActivity.class));
+        mList.add(new Modal("使用sharedUserId共享SharePreference", TextSharedUserIdActivity.class));
+        mList.add(new Modal("使用sharedUserId共享数据库", TestSQLiteActivity.class));
+        mList.add(new Modal("使用ContentProvider", TestSQLiteActivity.class));
         mListView.setAdapter(new Adapter());
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Modal item = mList.get(position);
                 if (item.mClass != null) {
-                    startActivity(new Intent(MainActivity.this, item.mClass));
+                    Intent intent = new Intent(MainActivity.this, item.mClass);
+                    if ("使用ContentProvider".equals(item.title)) {
+                        intent.putExtra(KEY_USE_CONTENT_PROVIDER, true);
+                    }
+                    startActivity(intent);
                 }
             }
         });

@@ -29,6 +29,9 @@
             </intent-filter>
 
         </receiver>
+        <provider
+            android:name="com.ai.cwf.common.SelfContentProvider"
+            android:authorities="com.ai.cwf.common" />
     </application>
 
 </manifest>

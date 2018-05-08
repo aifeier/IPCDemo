@@ -17,13 +17,13 @@ public class SQLiteUtils {
     public static SQLiteUtils getInstance(Context context) {
         if (instance == null) {
             synchronized (SharedPreferencesUtils.class) {
-                instance = new SQLiteUtils(context);
+                instance = new SQLiteUtils(context.getApplicationContext());
             }
         }
         return instance;
     }
 
-    public SQLiteUtils(Context context) {
+    private SQLiteUtils(Context context) {
         mDB = new SimpleSQLiteOpenHelper(context);
     }
 
