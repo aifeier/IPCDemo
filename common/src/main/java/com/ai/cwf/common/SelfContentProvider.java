@@ -39,7 +39,7 @@ public class SelfContentProvider extends ContentProvider {
         public final static String[] Projection = new String[]{COl_ID, COL_USERNAME, COL_SCHOOL};
     }
 
-    private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    public static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
         sUriMatcher.addURI(AUTHORITY, UserTable.TABLE_NAME, User_URI_CODE);
@@ -82,9 +82,10 @@ public class SelfContentProvider extends ContentProvider {
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
         String table = getTableName(uri);
         checkTableName(table);
-        mDB.insert(table, null, values);
-        // 通知外界 ContentProvider 中的数据发生变化
-        context.getContentResolver().notifyChange(uri, null);
+        long count = mDB.insert(table, null, values);
+        // 通知外界 ContentProvider 中的数据发生变化，对应相同的context中才会回调
+        if (count > 0)
+            context.getContentResolver().notifyChange(uri, null);
         return uri;
     }
 
@@ -102,8 +103,7 @@ public class SelfContentProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
         String table = getTableName(uri);
-        if (null == table)
-            throw new NullPointerException("uri not config");
+        checkTableName(table);
         int count = mDB.update(table, values, selection, selectionArgs);
         // 通知外界 ContentProvider 中的数据发生变化
         if (count > 0)

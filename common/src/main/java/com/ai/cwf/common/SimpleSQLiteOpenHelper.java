@@ -47,7 +47,7 @@ public class SimpleSQLiteOpenHelper extends SQLiteOpenHelper {
         cv.put(UserTable.COL_SCHOOL, user.school);
         //执行插入操作
         long r = getWritableDatabase().insert("user", null, cv);
-        close();
+//        close();
 
         //插入操作的SQL语句
 //        String sql = "insert into user(username,school) values ('" + user.name + "','" + user.school + "')";
@@ -61,7 +61,7 @@ public class SimpleSQLiteOpenHelper extends SQLiteOpenHelper {
         String[] whereArgs = {user.name + ""};
         //执行删除
         long r = getWritableDatabase().delete(UserTable.TABLE_NAME, whereClause, whereArgs);
-        close();
+//        close();
 
         //删除操作的SQL语句
 //        String sql = "delete from user where username='" + user.name + "'";
@@ -79,7 +79,7 @@ public class SimpleSQLiteOpenHelper extends SQLiteOpenHelper {
         String[] whereArgs = {user.name};
         //执行删除
         long r = getWritableDatabase().update(UserTable.TABLE_NAME, cv, whereClause, whereArgs);
-        close();
+//        close();
 
         //修改的SQL语句
 //        String sql = "update [user] set school = '" + user.school + "' where username='" + user.name+"'";//修改的SQL语句
@@ -97,7 +97,7 @@ public class SimpleSQLiteOpenHelper extends SQLiteOpenHelper {
             } while (c.moveToNext());
         }
         c.close();
-        close();
+//        close();
         return users;
     }
 

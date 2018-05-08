@@ -1,8 +1,12 @@
 package com.ai.cwf.ipcdemo.shareduserid;
 
 import android.content.ContentValues;
+import android.database.ContentObservable;
+import android.database.ContentObserver;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
@@ -52,11 +56,26 @@ public class TestSQLiteActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.btn_update).setOnClickListener(this);
         findViewById(R.id.btn_delete).setOnClickListener(this);
         mListView = (ListView) findViewById(R.id.listview);
+        refresh();
+        getContentResolver().registerContentObserver(SelfContentProvider.UserTable.CONTENT_URI, false, observer);
     }
+
+    private ContentObserver observer = new ContentObserver(new Handler()) {
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            super.onChange(selfChange, uri);
+            if (SelfContentProvider.User_URI_CODE == SelfContentProvider.sUriMatcher.match(uri)) {
+                refresh();
+            }
+        }
+    };
 
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    private void refresh() {
         if (useProvider) {
             users.clear();
             Cursor c = getContentResolver().query(SelfContentProvider.UserTable.CONTENT_URI, null, null, null, null);//查询并获得游标
@@ -115,21 +134,7 @@ public class TestSQLiteActivity extends AppCompatActivity implements View.OnClic
                     SQLiteUtils.getInstance(this).getDB().deleteUserFormDB(new User("姓名" + editName.getText().toString(), "学校" + editSchool.getText().toString()));
                 break;
         }
-        if (useProvider) {
-            users.clear();
-            Cursor c = getContentResolver().query(SelfContentProvider.UserTable.CONTENT_URI, null, null, null, null);//查询并获得游标
-            if (c.moveToFirst()) {//判断游标是否为空
-                do {//移动到指定记录
-                    User u = new User(c.getString(c.getColumnIndex(SelfContentProvider.UserTable.COL_USERNAME))
-                            , c.getString(c.getColumnIndex(SelfContentProvider.UserTable.COL_SCHOOL)));
-                    users.add(u);
-                } while (c.moveToNext());
-            }
-            c.close();
-        } else {
-            users = SQLiteUtils.getInstance(this).getDB().getAllDate();
-        }
-        adapter.notifyDataSetChanged();
+        refresh();
     }
 
     class Adapter extends BaseAdapter {
@@ -169,4 +174,9 @@ public class TestSQLiteActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getContentResolver().unregisterContentObserver(observer);
+    }
 }
